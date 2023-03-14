@@ -1,28 +1,28 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
-  <div class="form-group">
-    <label for="title">Title</label>
-    <input type="string" class="form-control" id="title"
-           formControlName="title" [class.is-invalid]="isInvalid('title')">
-    <div class="invalid-feedback">
-      Please enter a Title.
+<form (ngSubmit)="submit()" [formGroup]="form" class="mx-auto w-1/2 text-gray-100">
+  <fieldset class="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm bg-gray-900">
+    <div class="grid grid-cols-1 gap-4 col-span-full">
+      <label class="text-sm" for="title">Title</label>
+      <input [class.is-invalid]="isInvalid('title')"
+             class="w-full rounded-md text-gray-900 bg-gray-100 h-10"
+             formControlName="title"
+             id="title" type="string">
     </div>
-  </div>
-  <div class="form-group">
-    <label for="description">description</label>
-    <input type="string" class="form-control" id="description"
-           formControlName="description" [class.is-invalid]="isInvalid('description')">
-    <div class="invalid-feedback">
-      Please enter a description.
+    <div class="col-span-full">
+      <label class="text-sm" for="description">description</label>
+      <textarea [class.is-invalid]="isInvalid('description')"
+                class="w-full rounded-md  bg-gray-100 text-gray-900 h-40"
+                formControlName="description"
+                id="description" type="string"> </textarea>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="image">image</label>
-    <input type="file" class="form-control" id="image"
-           formControlName="image" [class.is-invalid]="isInvalid('image')" (change)="onFileSelect($event)">
-    <div class="invalid-feedback">
-      Please enter a image.
+    <div class="col-span-full">
+      <label for="image">image</label>
+      <input (change)="onFileSelect($event)" [class.is-invalid]="isInvalid('image')" class="rounded rounded-md"
+             formControlName="image"
+             id="image" type="file">
     </div>
-  </div>
-  <button [disabled]="form.invalid" type="submit" class="btn btn-primary d-inline">Add</button>
-  <span class="ml-2">{{ status$ | async }}</span>
+    <button [disabled]="form.invalid" class="w-1/2 px-1 py-2 rounded-md bg-gray-100 text-gray-900" type="submit">Add
+    </button>
+    <span class="ml-2">{{ status$ | async }}</span>
+  </fieldset>
 </form>
+
