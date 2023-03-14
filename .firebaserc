@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "bloogiapp": {
+      "hosting": {
+        "bloogApp": [
+          "bloogiapp"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "bloogiapp"
+  }
+}
