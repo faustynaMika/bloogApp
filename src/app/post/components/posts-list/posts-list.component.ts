@@ -22,8 +22,8 @@ export class PostsListComponent implements OnInit {
     this.posts$ = this.postsService.posts$;
   }
 
-  delete(post: Post) {
-    this.postsService.delete(post.id);
-  }
+  // delete(post: Post) {
+  //   this.postsService.delete(post.id);
+  // }
 
 }

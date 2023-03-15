@@ -36,6 +36,12 @@ export class PostsService {
       : state.posts))
   }
 
+  post$(id: string): Observable<Post | any> {
+    return this.store.state$.pipe(map(state => state.loading
+      ? null
+      : state.posts.find(value => value.id === id)))
+  }
+
   get loading$(): Observable<boolean> {
     return this.store.state$.pipe(map(state => state.loading))
   }

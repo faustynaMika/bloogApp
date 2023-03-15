@@ -9,4 +9,5 @@ import {Post} from "../../../../models/post";
 export class PostCardComponent {
   @Input()
   post: Post;
+
 }
