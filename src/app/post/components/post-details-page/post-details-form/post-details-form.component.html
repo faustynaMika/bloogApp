@@ -23,11 +23,13 @@
         <div class="col-span-full">
           <label class="text-sm" for="imageSrc">Photo</label>
           <div class="flex items-center space-x-2">
-            <img alt="img" class="w-10 h-10 rounded-full bg-gray-500 bg-gray-300" id="imageSrc"
-                 [src]="">
-            <button class="px-4 py-2 border rounded-md border-gray-800" type="button" [value]="post.imageSrc">Change</button>
+            <input (change)="onFileSelect($event)" class="rounded rounded-md"
+                   formControlName="image"
+                   id="imageSrc" type="file">
           </div>
-        </div>
+<!--          <button [disabled]="prepareForm.invalid" class="w-1/2 px-1 py-2 rounded-md bg-gray-100 text-gray-900" type="submit">Add-->
+<!--          </button>-->
+          </div>
       </div>
     </fieldset>
   </form>

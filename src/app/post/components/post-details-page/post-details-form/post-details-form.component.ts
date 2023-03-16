@@ -12,6 +12,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class PostDetailsFormComponent {
   post$: Observable<Post | any>;
+  selectedFiles: File[] = [];
 
   prepareForm: FormGroup = new FormGroup({
       title: new FormControl(''),
@@ -42,13 +43,17 @@ export class PostDetailsFormComponent {
     return this.prepareForm.get('inputs') as FormArray;
   }
 
+  onFileSelect(event: any) {
+    this.selectedFiles = event.target.files;
+  }
+
   async addDailyPost() {
 
     this.prepareForm.disable()
-    await this.postService.update(
+    await this.postService.updateFile(
       {
         ...this.prepareForm.value
-      }
+      }, this.selectedFiles[0]
     );
     this.prepareForm.reset()
     this.prepareForm.enable()

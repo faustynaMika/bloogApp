@@ -96,7 +96,7 @@ export class PostsService {
     ).subscribe();
   }
 
-  addPost(post: Post) {
+  private addPost(post: Post) {
     return this.firestore.create(post).then(_ => {
       this.store.patch({
         formStatus: 'Saved!'
@@ -112,6 +112,33 @@ export class PostsService {
     })
   }
 
+  updateFile(post: Post, image: File) {
+
+    this.store.patch({
+      loading: true,
+      posts: [],
+      formStatus: 'Saving...'
+    }, "post create")
+
+    const filePath = `postFile/${image.name}`;
+    const storageRef = this.fireStorage.ref(filePath);
+    const uploadTask = this.fireStorage.upload(filePath, image);
+
+    uploadTask.snapshotChanges().pipe(
+      finalize(() => {
+        storageRef.getDownloadURL().subscribe(downloadURL => {
+
+          post = {
+            ...post,
+            imageSrc: downloadURL,
+          }
+
+          this.updatePost(post);
+        });
+      })
+    ).subscribe();
+  }
+
   delete(id: string): any {
     this.store.patch({loading: true, posts: []}, "employee delete")
     return this.firestore.delete(id).catch(err => {
@@ -122,7 +149,7 @@ export class PostsService {
     })
   }
 
-  update(post: Post) {
+  updatePost(post: Post) {
 
     console.log("HERE: " + post);
 
