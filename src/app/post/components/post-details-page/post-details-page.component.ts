@@ -11,6 +11,7 @@ import {AuthService} from "../../../auth/services/auth.service";
   styleUrls: ['./post-details-page.component.css']
 })
 export class PostDetailsPageComponent implements OnInit {
+  date: Date = new Date();
   post$: Observable<Post | any>;
   loggedIn$: Observable<boolean>
 

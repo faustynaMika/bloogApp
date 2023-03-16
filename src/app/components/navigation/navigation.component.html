@@ -8,9 +8,6 @@
         <a class="flex items-center px-4 -mb-1 border-b-2 border-transparent" routerLink="">Blog</a>
       </li>
       <li class="flex">
-        <a class="flex items-center px-4 -mb-1 border-b-2 border-transparent" routerLink="">Youtube</a>
-      </li>
-      <li class="flex">
         <div *ngIf="isLoggedIn$ | async; else notLoggedIn">
           <div *ngIf="user$ | async as user">
             {{user.name}}
