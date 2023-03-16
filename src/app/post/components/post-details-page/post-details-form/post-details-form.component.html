@@ -15,11 +15,6 @@
           <input class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-sky-600 border-gray-300 text-gray-900" formControlName="title" id="title" placeholder="title"
                  type="text" [value]="post.title">
         </div>
-        <div class="col-span-full sm:col-span-3">
-          <label class="text-sm" for="hashtag">#</label>
-          <input class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-sky-600 border-gray-300 text-gray-900" formControlName="hashtag" id="hashtag" placeholder="#life"
-                 type="text" [value]="post.hashtag">
-        </div>
         <div class="col-span-full">
           <label class="text-sm" for="description">description</label>
           <textarea class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-sky-600 border-gray-300 text-gray-900 h-40" formControlName="description" id="description"
@@ -29,7 +24,7 @@
           <label class="text-sm" for="imageSrc">Photo</label>
           <div class="flex items-center space-x-2">
             <img alt="img" class="w-10 h-10 rounded-full bg-gray-500 bg-gray-300" id="imageSrc"
-                 src="https://source.unsplash.com/30x30/?random">
+                 [src]="">
             <button class="px-4 py-2 border rounded-md border-gray-800" type="button" [value]="post.imageSrc">Change</button>
           </div>
         </div>

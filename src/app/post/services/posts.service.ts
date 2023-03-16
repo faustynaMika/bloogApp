@@ -36,12 +36,6 @@ export class PostsService {
       : state.posts))
   }
 
-  post$(id: string): Observable<Post | any> {
-    return this.store.state$.pipe(map(state => state.loading
-      ? null
-      : state.posts.find(value => value.id === id)))
-  }
-
   get loading$(): Observable<boolean> {
     return this.store.state$.pipe(map(state => state.loading))
   }
@@ -62,6 +56,12 @@ export class PostsService {
 
   get totalPosts$(): Observable<any> {
     return this.store.state$.pipe(map(state => state.totalPosts))
+  }
+
+  post$(id: string): Observable<Post | any> {
+    return this.store.state$.pipe(map(state => state.loading
+      ? null
+      : state.posts.find(value => value.id === id)))
   }
 
   async addFile(file: File): Promise<AngularFireUploadTask> {
@@ -113,12 +113,31 @@ export class PostsService {
   }
 
   delete(id: string): any {
-    this.store.patch({ loading: true, posts: [] }, "employee delete")
+    this.store.patch({loading: true, posts: []}, "employee delete")
     return this.firestore.delete(id).catch(err => {
       this.store.patch({
         loading: false,
         formStatus: 'An error ocurred'
       }, "employee delete ERROR")
+    })
+  }
+
+  update(post: Post) {
+
+    console.log("HERE: " + post);
+
+    return this.firestore.update(post, post.id).then(_ => {
+      this.store.patch({
+        formStatus: 'Updated!'
+      }, "post updated SUCCESS")
+      setTimeout(() => this.store.patch({
+        formStatus: ''
+      }, "post update timeout reset formStatus"), 2000)
+    }).catch(err => {
+      this.store.patch({
+        loading: false,
+        formStatus: 'An error ocurred'
+      }, "post update ERROR")
     })
   }
 }

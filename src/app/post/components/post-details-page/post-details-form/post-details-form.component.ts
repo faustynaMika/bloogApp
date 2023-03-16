@@ -18,7 +18,6 @@ export class PostDetailsFormComponent {
       description: new FormControl(''),
       id: new FormControl(null),
       imageSrc: new FormControl(''),
-      hashtag: new FormControl('')
     }
   );
 
@@ -27,12 +26,12 @@ export class PostDetailsFormComponent {
 
     if (id) {
       this.post$ = postService.post$(id)
-      let post = postService.post$(id).subscribe(value => {
+      postService.post$(id).subscribe(value => {
         this.prepareForm.patchValue({
           title: value.title,
           description: value.description,
           imgSrc: value.imgSrc,
-          hashtag: value.hashtag
+          id: value.id
         })
       })
 
@@ -43,8 +42,16 @@ export class PostDetailsFormComponent {
     return this.prepareForm.get('inputs') as FormArray;
   }
 
-  addDailyPost() {
-    console.log(this.prepareForm.value)
+  async addDailyPost() {
+
+    this.prepareForm.disable()
+    await this.postService.update(
+      {
+        ...this.prepareForm.value
+      }
+    );
+    this.prepareForm.reset()
+    this.prepareForm.enable()
 
   }
 }
