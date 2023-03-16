@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'Averia Serif Libre', cursive;
+  src: url(assets/fonts/AveriaSerifLibre-Italic.ttf) format("truetype");
+}
+@font-face {
+  font-family: 'Sacramento', cursive;
+  src: url(assets/fonts/Sacramento-Regular.ttf) format("truetype");
+}
+body {
+  font-family: 'Averia Serif Libre', cursive;
+}
