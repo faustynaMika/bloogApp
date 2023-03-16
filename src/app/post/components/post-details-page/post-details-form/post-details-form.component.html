@@ -7,12 +7,12 @@
         <p class="font-medium">Edit Post</p>
         <p class="text-xs">Adipisci fuga autem eum!</p>
       </div>
-      <input type="hidden" [value]="post.id"/>
+      <input type="hidden" />
       <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
         <div class="col-span-full sm:col-span-3">
           <label class="text-sm" for="title">Title</label>
           <input class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-sky-600 border-gray-300 text-gray-900" formControlName="title" id="title" placeholder="title"
-                 type="text" [value]="post.title">
+                 type="text">
         </div>
         <div class="col-span-full">
           <label class="text-sm" for="description">description</label>
@@ -23,7 +23,6 @@
           <label class="text-sm" for="imageSrc">Photo</label>
           <div class="flex items-center space-x-2">
             <input (change)="onFileSelect($event)" class="rounded rounded-md"
-                   formControlName="image"
                    id="imageSrc" type="file">
           </div>
 <!--          <button [disabled]="prepareForm.invalid" class="w-1/2 px-1 py-2 rounded-md bg-gray-100 text-gray-900" type="submit">Add-->

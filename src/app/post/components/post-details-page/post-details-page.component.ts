@@ -23,7 +23,7 @@ export class PostDetailsPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loggedIn$ = this.authService.isLoggedIn
+    this.loggedIn$ = this.authService.isLoggedIn$
   }
 
 }

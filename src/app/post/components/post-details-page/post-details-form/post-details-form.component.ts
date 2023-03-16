@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Observable} from "rxjs";
+import {filter, map, Observable} from "rxjs";
 import {Post} from "../../../models/post";
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
 import {PostsService} from "../../../services/posts.service";
@@ -22,21 +22,16 @@ export class PostDetailsFormComponent {
     }
   );
 
-  constructor(private _Activatedroute: ActivatedRoute, private postService: PostsService) {
-    let id = this._Activatedroute.snapshot.paramMap.get("id")
+  constructor(private activatedRoute: ActivatedRoute, private postService: PostsService) {
+    this.activatedRoute.params
+      .pipe(map(param => param['id']))
+      .subscribe(id => {
+        let post = postService.post$(id)
 
-    if (id) {
-      this.post$ = postService.post$(id)
-      postService.post$(id).subscribe(value => {
-        this.prepareForm.patchValue({
-          title: value.title,
-          description: value.description,
-          imgSrc: value.imgSrc,
-          id: value.id
-        })
-      })
+        this.post$ = post;
 
-    }
+        post.subscribe(value => this.prepareForm.patchValue({...value}))
+      });
   }
 
   get inputs(): FormArray {

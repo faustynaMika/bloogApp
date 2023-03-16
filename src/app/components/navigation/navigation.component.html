@@ -11,11 +11,15 @@
         <a class="flex items-center px-4 -mb-1 border-b-2 border-transparent" routerLink="">Youtube</a>
       </li>
       <li class="flex">
-        <a class="flex items-center px-4 -mb-1 border-b-2 border-transparent" (click)="logIn()">logIn</a>
-        <div *ngIf="user$ | async as user">
-          {{user.name}}
-          <button (click)="logOut()">logout</button>
+        <div *ngIf="isLoggedIn$ | async; else notLoggedIn">
+          <div *ngIf="user$ | async as user">
+            {{user.name}}
+            <button (click)="logOut()">logout</button>
+          </div>
         </div>
+        <ng-template #notLoggedIn>
+          <a class="flex items-center px-4 -mb-1 border-b-2 border-transparent" (click)="logIn()">logIn</a>
+        </ng-template>
       </li>
     </ul>
   </div>
