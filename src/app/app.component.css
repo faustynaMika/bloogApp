@@ -3,3 +3,9 @@
   bottom: 0;
   width: 100%;
 }
+
+.xyz {
+  background-image: url("src/assets/img/blob-scene-haikei.svg");
+  background-size: cover;
+}
+
