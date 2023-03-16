@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {finalize, map, Observable} from "rxjs";
 import {PostsPageStore} from "./posts-page-store.service";
 import {tap} from "rxjs/operators";
@@ -10,13 +10,20 @@ import {AngularFireStorage, AngularFireUploadTask} from "@angular/fire/compat/st
 @Injectable({
   providedIn: 'root'
 })
-export class PostsService {
+export class PostsService implements OnInit{
 
   constructor(
     private firestore: PostFirestore,
     private fireStorage: AngularFireStorage,
     private store: PostsPageStore
   ) {
+
+    this.store.patch({
+      loading: true,
+      posts: [],
+      totalPosts: 0
+    }, "loading posts")
+
     this.firestore.collection$().pipe(
       tap(posts => {
         this.store.patch({
@@ -28,6 +35,14 @@ export class PostsService {
     ).subscribe()
 
   }
+
+  ngOnInit(): void {
+    this.store.patch({
+      loading: true,
+      posts: [],
+      totalPosts: 0
+    }, "loading posts")
+    }
 
 
   get posts$(): Observable<Post[]> {

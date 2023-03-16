@@ -19,6 +19,7 @@ export class PostsListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loading$ = this.postsService.loading$
     this.posts$ = this.postsService.posts$;
   }
 
