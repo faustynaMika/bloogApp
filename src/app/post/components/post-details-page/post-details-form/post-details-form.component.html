@@ -1,8 +1,7 @@
-<section class="p-6 bg-gray-100 text-gray-900 mb-10" >
+<section class="p-6 bg-gray-100 text-gray-900 mb-10 rounded-md" >
   <form [formGroup]="prepareForm" action="" class="container flex flex-col mx-auto space-y-12 ng-untouched ng-pristine ng-valid"
         novalidate=""
-        *ngIf="post$ | async as post"
-  >
+        *ngIf="post$ | async as post">
     <fieldset class="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm bg-gray-50">
       <div class="space-y-2 col-span-full lg:col-span-1">
         <p class="font-medium">Edit Post</p>

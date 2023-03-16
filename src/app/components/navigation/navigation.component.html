@@ -1,6 +1,6 @@
-<header class="p-4 bg-transparent bg-fuchsia-50 text-gray-800">
+<header class="p-4 bg-transparent text-gray-900">
   <div class="container flex justify-between h-16 mx-auto">
-    <a class="flex items-center p-2" href="">
+    <a class="flex items-center p-2" routerLink="">
      <p class="text-4xl" style="font-family: 'Sacramento', cursive">My Blog</p>
     </a>
     <ul class="items-stretch space-x-3 flex">
@@ -11,7 +11,11 @@
         <a class="flex items-center px-4 -mb-1 border-b-2 border-transparent" routerLink="">Youtube</a>
       </li>
       <li class="flex">
-        <a class="flex items-center px-4 -mb-1 border-b-2 border-transparent text-sky-600 border-sky-600" routerLink="">AboutAs</a>
+        <a class="flex items-center px-4 -mb-1 border-b-2 border-transparent" (click)="logIn()">logIn</a>
+        <div *ngIf="user$ | async as user">
+          {{user.name}}
+          <button (click)="logOut()">logout</button>
+        </div>
       </li>
     </ul>
   </div>

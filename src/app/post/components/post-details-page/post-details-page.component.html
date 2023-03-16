@@ -1,16 +1,18 @@
-<article class="max-w-2xl mx-auto my-10 space-y-16 bg-gray-100 text-gray-900" *ngIf="post$ | async as post">
-  <img alt="img" [src]="post.imageSrc" class="w-full">
-  <div class="w-full mx-auto space-y-4 px-5">
-    <h1 class="text-5xl font-bold leading-none">{{post.title}}</h1>
-    <p class="text-sm text-gray-600">by
-      <a href="#" target="_blank" rel="noopener noreferrer" class="hover:underline text-sky-600">
-        <span>Leroy Jenkins</span>
-      </a>on
-      <time datetime="2021-02-12 15:34:18-0200">Feb 12th 2021</time>
-    </p>
-  </div>
-  <div class="text-gray-800 px-5 pb-10">
-    <p>{{post.description}}</p>
-  </div>
-</article>
-<app-post-details-form [id]="post$"></app-post-details-form>
+<div class="px-5">
+  <article class="max-w-2xl mx-auto my-10 space-y-16 bg-gray-100 text-gray-900 rounded-b-md " *ngIf="post$ | async as post">
+    <img alt="img" [src]="post.imageSrc" class="img">
+    <div class="w-full mx-auto space-y-4 px-5">
+      <h1 class="text-5xl font-bold leading-none">{{post.title}}</h1>
+      <p class="text-sm text-gray-600">by
+        <a href="#" target="_blank" rel="noopener noreferrer" class="hover:underline text-sky-600">
+          <span>Leroy Jenkins</span>
+        </a>on
+        <time datetime="2021-02-12 15:34:18-0200">Feb 12th 2021</time>
+      </p>
+    </div>
+    <div class="text-gray-800 px-5 pb-10">
+      <p>{{post.description}}</p>
+    </div>
+  </article>
+  <app-post-details-form *ngIf="loggedIn$ | async" [id]="post$"></app-post-details-form>
+</div>
