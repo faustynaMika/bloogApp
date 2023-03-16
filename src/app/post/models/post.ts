@@ -3,5 +3,6 @@ export interface Post {
   title: string;
   description: string;
   imageSrc: string;
+  hashtag: string;
   createdAt: Date;
 }

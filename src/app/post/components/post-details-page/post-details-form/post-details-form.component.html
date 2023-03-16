@@ -1,0 +1,40 @@
+<section class="p-6 bg-gray-100 text-gray-900 mb-10" >
+  <form [formGroup]="prepareForm" action="" class="container flex flex-col mx-auto space-y-12 ng-untouched ng-pristine ng-valid"
+        novalidate=""
+        *ngIf="post$ | async as post"
+  >
+    <fieldset class="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm bg-gray-50">
+      <div class="space-y-2 col-span-full lg:col-span-1">
+        <p class="font-medium">Edit Post</p>
+        <p class="text-xs">Adipisci fuga autem eum!</p>
+      </div>
+      <input type="hidden" [value]="post.id"/>
+      <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
+        <div class="col-span-full sm:col-span-3">
+          <label class="text-sm" for="title">Title</label>
+          <input class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-sky-600 border-gray-300 text-gray-900" formControlName="title" id="title" placeholder="title"
+                 type="text" [value]="post.title">
+        </div>
+        <div class="col-span-full sm:col-span-3">
+          <label class="text-sm" for="hashtag">#</label>
+          <input class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-sky-600 border-gray-300 text-gray-900" formControlName="hashtag" id="hashtag" placeholder="#life"
+                 type="text" [value]="post.hashtag">
+        </div>
+        <div class="col-span-full">
+          <label class="text-sm" for="description">description</label>
+          <textarea class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-sky-600 border-gray-300 text-gray-900 h-40" formControlName="description" id="description"
+                    placeholder="description" [value]="post.description"></textarea>
+        </div>
+        <div class="col-span-full">
+          <label class="text-sm" for="imageSrc">Photo</label>
+          <div class="flex items-center space-x-2">
+            <img alt="img" class="w-10 h-10 rounded-full bg-gray-500 bg-gray-300" id="imageSrc"
+                 src="https://source.unsplash.com/30x30/?random">
+            <button class="px-4 py-2 border rounded-md border-gray-800" type="button" [value]="post.imageSrc">Change</button>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+  <button (click)="addDailyPost()">Wyślij</button>
+</section>

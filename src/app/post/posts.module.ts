@@ -9,6 +9,7 @@ import {PostFormComponent} from "./components/post-form/post-form.component";
 import {PostsSummaryComponent} from "./components/posts-summary/posts-summary.component";
 import {PostCardComponent} from './components/posts-list/components/post-card/post-card.component';
 import {PostDetailsPageComponent} from "./components/post-details-page/post-details-page.component";
+import { PostDetailsFormComponent } from './components/post-details-page/post-details-form/post-details-form.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import {PostDetailsPageComponent} from "./components/post-details-page/post-deta
     PostsSummaryComponent,
     PostCardComponent,
     PostDetailsPageComponent,
+    PostDetailsFormComponent,
   ],
   imports: [
     CommonModule,
