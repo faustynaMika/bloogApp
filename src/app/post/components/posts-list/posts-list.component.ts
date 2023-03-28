@@ -16,15 +16,12 @@ export class PostsListComponent implements OnInit {
 
   constructor(
     private postsService: PostsService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.loading$ = this.postsService.loading$
     this.posts$ = this.postsService.posts$;
   }
-
-  // delete(post: Post) {
-  //   this.postsService.delete(post.id);
-  // }
 
 }

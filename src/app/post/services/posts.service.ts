@@ -1,21 +1,23 @@
 import {Injectable, OnInit} from '@angular/core';
-import {finalize, map, Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {PostsPageStore} from "./posts-page-store.service";
 import {tap} from "rxjs/operators";
 import {Post} from "../models/post";
 import {PostFirestore} from "./post-firestore.service";
-import {AngularFireStorage, AngularFireUploadTask} from "@angular/fire/compat/storage";
+import {AngularFireStorage} from "@angular/fire/compat/storage";
+import {DataService} from "../../services/data.service";
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class PostsService implements OnInit{
+export class PostsService implements OnInit {
 
   constructor(
     private firestore: PostFirestore,
     private fireStorage: AngularFireStorage,
-    private store: PostsPageStore
+    private store: PostsPageStore,
+    private dataService: DataService
   ) {
 
     this.store.patch({
@@ -24,8 +26,17 @@ export class PostsService implements OnInit{
       totalPosts: 0
     }, "loading posts")
 
-    this.firestore.collection$().pipe(
-      tap(posts => {
+    this.dataService.getTimesWorldData().pipe(
+      tap(response => {
+
+        let posts = response.results.map(result => Object.create({
+          id: result.uri,
+          title: result.title,
+          description: result.abstract,
+          imageSrc: result.multimedia[0].url,
+          createdAt: new Date(),
+        }))
+
         this.store.patch({
           loading: false,
           posts: posts,
@@ -34,16 +45,8 @@ export class PostsService implements OnInit{
       })
     ).subscribe()
 
+
   }
-
-  ngOnInit(): void {
-    this.store.patch({
-      loading: true,
-      posts: [],
-      totalPosts: 0
-    }, "loading posts")
-    }
-
 
   get posts$(): Observable<Post[]> {
     return this.store.state$.pipe(map(state => state.loading
@@ -55,131 +58,21 @@ export class PostsService implements OnInit{
     return this.store.state$.pipe(map(state => state.loading))
   }
 
-  get noResults$(): Observable<boolean> {
-    return this.store.state$.pipe(
-      map(state => {
-        return !state.loading
-          && state.posts
-          && state.posts.length === 0
-      })
-    )
-  }
-
-  get formStatus$(): Observable<string> {
-    return this.store.state$.pipe(map(state => state.formStatus))
-  }
-
   get totalPosts$(): Observable<any> {
     return this.store.state$.pipe(map(state => state.totalPosts))
+  }
+
+  ngOnInit(): void {
+    this.store.patch({
+      loading: true,
+      posts: [],
+      totalPosts: 0
+    }, "loading posts")
   }
 
   post$(id: string): Observable<Post | any> {
     return this.store.state$.pipe(map(state => state.loading
       ? null
       : state.posts.find(value => value.id === id)))
-  }
-
-  async addFile(file: File): Promise<AngularFireUploadTask> {
-    return this.fireStorage.upload('postsImage', file)
-  }
-
-  create(post: Post, image: File) {
-
-    this.store.patch({
-      loading: true,
-      posts: [],
-      formStatus: 'Saving...'
-    }, "post create")
-
-    const filePath = `postFile/${image.name}`;
-    const storageRef = this.fireStorage.ref(filePath);
-    const uploadTask = this.fireStorage.upload(filePath, image);
-
-    uploadTask.snapshotChanges().pipe(
-      finalize(() => {
-        storageRef.getDownloadURL().subscribe(downloadURL => {
-
-          post = {
-            ...post,
-            imageSrc: downloadURL,
-            createdAt: new Date(),
-          }
-
-          this.addPost(post);
-        });
-      })
-    ).subscribe();
-  }
-
-  private addPost(post: Post) {
-    return this.firestore.create(post).then(_ => {
-      this.store.patch({
-        formStatus: 'Saved!'
-      }, "post create SUCCESS")
-      setTimeout(() => this.store.patch({
-        formStatus: ''
-      }, "post create timeout reset formStatus"), 2000)
-    }).catch(err => {
-      this.store.patch({
-        loading: false,
-        formStatus: 'An error ocurred'
-      }, "post create ERROR")
-    })
-  }
-
-  updateFile(post: Post, image: File) {
-
-    this.store.patch({
-      loading: true,
-      posts: [],
-      formStatus: 'Saving...'
-    }, "post create")
-
-    const filePath = `postFile/${image.name}`;
-    const storageRef = this.fireStorage.ref(filePath);
-    const uploadTask = this.fireStorage.upload(filePath, image);
-
-    uploadTask.snapshotChanges().pipe(
-      finalize(() => {
-        storageRef.getDownloadURL().subscribe(downloadURL => {
-
-          post = {
-            ...post,
-            imageSrc: downloadURL,
-          }
-
-          this.updatePost(post);
-        });
-      })
-    ).subscribe();
-  }
-
-  delete(id: string): any {
-    this.store.patch({loading: true, posts: []}, "employee delete")
-    return this.firestore.delete(id).catch(err => {
-      this.store.patch({
-        loading: false,
-        formStatus: 'An error ocurred'
-      }, "employee delete ERROR")
-    })
-  }
-
-  updatePost(post: Post) {
-
-    console.log("HERE: " + post);
-
-    return this.firestore.update(post, post.id).then(_ => {
-      this.store.patch({
-        formStatus: 'Updated!'
-      }, "post updated SUCCESS")
-      setTimeout(() => this.store.patch({
-        formStatus: ''
-      }, "post update timeout reset formStatus"), 2000)
-    }).catch(err => {
-      this.store.patch({
-        loading: false,
-        formStatus: 'An error ocurred'
-      }, "post update ERROR")
-    })
   }
 }

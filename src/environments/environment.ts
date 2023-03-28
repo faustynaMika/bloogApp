@@ -3,6 +3,7 @@ import {getAnalytics} from "firebase/analytics";
 
 export const environment = {
   production: false,
+  timesApiKey: 'EgaxSAraTKz541QOJ0OxSnGAtWqETYuB',
   firebase: {
     projectId: 'bloogiapp',
     appId: '1:1001130711434:web:fa6c42fbf90343c0bbd073',

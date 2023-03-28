@@ -12,6 +12,9 @@ import {CoreModule} from "./core/core.module";
 import {getStorage, provideStorage} from "@angular/fire/storage";
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { FooterComponent } from './components/footer/footer.component';
+import {HttpClientModule} from "@angular/common/http";
+import {RestService} from "./services/rest.service";
+import {DataService} from "./services/data.service";
 
 @NgModule({
   declarations: [
@@ -21,6 +24,7 @@ import { FooterComponent } from './components/footer/footer.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
@@ -30,7 +34,10 @@ import { FooterComponent } from './components/footer/footer.component';
     provideStorage(() => getStorage()),
     CoreModule,
   ],
-  providers: [],
+  providers: [
+    RestService,
+    DataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
