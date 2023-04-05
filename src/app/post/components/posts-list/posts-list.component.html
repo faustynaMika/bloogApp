@@ -15,7 +15,7 @@
   <div class="container grid lg:grid-cols-3 grid-cols-1 gap-4 p-4 mx-auto">
     <app-post-card *ngFor="let post of posts$ | async" [post]="post"
                    [routerLink]="['details', post.id]"
-                   class="card-img w-full rounded bg-transparent">
+                   class="card-img w-full bg-transparent">
     </app-post-card>
   </div>
 </section>

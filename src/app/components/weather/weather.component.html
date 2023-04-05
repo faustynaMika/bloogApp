@@ -1,0 +1,13 @@
+<div *ngIf="weatherData$ | async as weather else loading">
+  <p>
+    {{weather.location}}
+  </p>
+  <div>
+    {{weather.forecast[0].max_temp_c + '°C'}}
+  </div>
+<div>
+</div>
+</div>
+
+<ng-template #loading >LOAD</ng-template>
+

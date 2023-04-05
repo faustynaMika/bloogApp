@@ -1,23 +1,13 @@
 <header class="p-4 bg-transparent text-gray-900">
   <div class="container flex justify-between h-16 mx-auto">
-    <a class="flex items-center p-2" routerLink="">
-     <p class="text-4xl">My Blog</p>
+    <a class="flex text-center mx-auto items-centerp-2" routerLink="">
+     <p class="text-4xl ">New York Times News</p>
     </a>
     <ul class="items-stretch space-x-3 flex">
       <li class="flex">
-        <a class="flex items-center px-4 -mb-1 border-b-2 border-transparent" routerLink="">Blog</a>
-      </li>
-      <li class="flex">
-        <div *ngIf="isLoggedIn$ | async; else notLoggedIn">
-          <div *ngIf="user$ | async as user">
-            {{user.name}}
-            <button (click)="logOut()">logout</button>
-          </div>
-        </div>
-        <ng-template #notLoggedIn>
-          <a class="flex items-center px-4 -mb-1 border-b-2 border-transparent" (click)="logIn()">logIn</a>
-        </ng-template>
+        <a class="flex items-center px-4 -mb-1 border-b-2 border-transparent" routerLink=""></a>
       </li>
     </ul>
   </div>
+  <app-weather></app-weather>
 </header>

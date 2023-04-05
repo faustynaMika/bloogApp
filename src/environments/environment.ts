@@ -4,6 +4,7 @@ import {getAnalytics} from "firebase/analytics";
 export const environment = {
   production: false,
   timesApiKey: 'EgaxSAraTKz541QOJ0OxSnGAtWqETYuB',
+  weatherApiKey: 'MGU1YmJiM2YtZDBlMy00NGMwLThlNzYtMGQ0NWIyZWNlNWJk',
   firebase: {
     projectId: 'bloogiapp',
     appId: '1:1001130711434:web:fa6c42fbf90343c0bbd073',

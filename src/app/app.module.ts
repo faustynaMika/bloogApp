@@ -15,12 +15,14 @@ import { FooterComponent } from './components/footer/footer.component';
 import {HttpClientModule} from "@angular/common/http";
 import {RestService} from "./services/rest.service";
 import {DataService} from "./services/data.service";
+import { WeatherComponent } from './components/weather/weather.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    FooterComponent
+    FooterComponent,
+    WeatherComponent
   ],
   imports: [
     BrowserModule,
