@@ -1,4 +1,7 @@
 # BloogApp
+https://bloogiapp.web.app/
+
+https://user-images.githubusercontent.com/97546871/230038709-bf49b9ce-c7c6-4cae-ba26-d033436d3c4e.mp4
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.2.
 
